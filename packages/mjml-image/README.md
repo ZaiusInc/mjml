@@ -29,10 +29,13 @@ alt                           | string        | image description              |
 border                        | string        | css border definition          | none
 border-radius                 | px            | border radius                  | n/a
 container-background-color    | color         | inner element background color | n/a
+container-height              | px            | height of the image container  | n/a
 css-class                     | string        | class name, added to the root HTML element created | n/a
 fluid-on-mobile               | string        | if "true", will be full width on mobile even if width is set | n/a
 height                        | px            | image height                   | auto
 href                          | url           | link to redirect to on click   | n/a
+inner-align                   | position      | image alignment within container | n/a
+inner-vertical-align          | middle/top/bottom | image vertical alignment within container | n/a
 padding                       | px            | supports up to 4 parameters    | 10px 25px
 padding-bottom                | px            | bottom offset                  | n/a
 padding-left                  | px            | left offset                    | n/a
