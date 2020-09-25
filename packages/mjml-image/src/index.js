@@ -17,6 +17,8 @@ export default class MjImage extends BodyComponent {
     title: 'string',
     rel: 'string',
     align: 'enum(left,center,right)',
+    'inner-align': 'enum(left,center,right)',
+    'inner-vertical-align': 'enum(top,middle,bottom)',
     border: 'string',
     'border-bottom': 'string',
     'border-left': 'string',
@@ -32,8 +34,10 @@ export default class MjImage extends BodyComponent {
     'padding-top': 'unit(px,%)',
     target: 'string',
     width: 'unit(px)',
+    'max-width': 'unit(px,%)',
     height: 'unit(px,auto)',
     'max-height': 'unit(px,%)',
+    'container-height': 'unit(px,%)',
     'font-size': 'unit(px)',
     usemap: 'string',
   }
@@ -50,6 +54,8 @@ export default class MjImage extends BodyComponent {
   getStyles() {
     const width = this.getContentWidth()
     const fullWidth = this.getAttribute('full-width') === 'full-width'
+    const maxWidth = this.getAttribute('max-width')
+    const maxHeight = this.getAttribute('max-height')
 
     const { parsedWidth, unit } = widthParser(width)
 
@@ -65,10 +71,10 @@ export default class MjImage extends BodyComponent {
         outline: 'none',
         'text-decoration': 'none',
         height: this.getAttribute('height'),
-        'max-height': this.getAttribute('max-height'),
+        'max-height': maxHeight,
         'min-width': fullWidth ? '100%' : null,
-        width: '100%',
-        'max-width': fullWidth ? '100%' : null,
+        width: maxWidth ? 'auto' : '100%',
+        'max-width': fullWidth ? '100%' : maxWidth,
         'font-size': this.getAttribute('font-size'),
       },
       td: {
@@ -139,6 +145,8 @@ export default class MjImage extends BodyComponent {
   `
 
   render() {
+    const height = this.getAttribute('container-height')
+
     return `
       <table
         ${this.htmlAttributes({
@@ -159,6 +167,9 @@ export default class MjImage extends BodyComponent {
               class: this.getAttribute('fluid-on-mobile')
                 ? 'mj-full-width-mobile'
                 : null,
+              align: this.getAttribute('inner-align'),
+              valign: this.getAttribute('inner-vertical-align'),
+              height: height && parseInt(height, 10),
             })}>
               ${this.renderImage()}
             </td>
